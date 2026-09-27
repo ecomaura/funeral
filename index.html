@@ -212,14 +212,16 @@
     }
 
     .btn-secondary {
-      background-color: transparent;
+      background-color: rgba(248, 245, 239, 0.85);
       color: var(--color-forest);
       border: 1px solid var(--color-sand);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
     }
 
     .btn-secondary:hover {
       border-color: var(--color-forest);
-      background-color: rgba(40, 53, 46, 0.03);
+      background-color: var(--color-ivory);
       transform: translateY(-1px);
     }
 
@@ -370,12 +372,21 @@
     }
 
     /* ==========================================================================
-       HERO
+       HERO (UPDATED WITH BACKGROUND PET IMAGE + SOFT WARM GRADIENTS)
        ========================================================================== */
     .hero {
+      position: relative;
       padding-top: clamp(40px, 6vw, 90px);
       padding-bottom: clamp(60px, 8vw, 110px);
       background-color: var(--color-ivory);
+      /* Subtle pet photography background with warm cream-to-ivory gradients */
+      background-image: 
+        linear-gradient(to right, rgba(248, 245, 239, 0.98) 0%, rgba(248, 245, 239, 0.94) 42%, rgba(248, 245, 239, 0.82) 70%, rgba(248, 245, 239, 0.68) 100%),
+        linear-gradient(to bottom, rgba(248, 245, 239, 0.6) 0%, rgba(248, 245, 239, 0.92) 100%),
+        url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=2000&q=80');
+      background-size: cover;
+      background-position: center right;
+      background-repeat: no-repeat;
     }
 
     .hero-grid {
@@ -383,6 +394,8 @@
       grid-template-columns: 1.15fr 0.95fr;
       align-items: center;
       gap: clamp(32px, 5vw, 72px);
+      position: relative;
+      z-index: 2;
     }
 
     .hero-content {
@@ -424,7 +437,8 @@
       border-radius: 4px;
       overflow: hidden;
       background-color: var(--color-cream);
-      box-shadow: 0 12px 36px -12px rgba(40, 53, 46, 0.08);
+      box-shadow: 0 16px 40px -12px rgba(40, 53, 46, 0.12);
+      border: 1px solid rgba(216, 203, 185, 0.5);
     }
 
     .hero-image-wrapper img {
@@ -447,6 +461,8 @@
       border-top: 1px solid rgba(216, 203, 185, 0.6);
       border-bottom: 1px solid rgba(216, 203, 185, 0.6);
       padding: 1.25rem 0;
+      position: relative;
+      z-index: 3;
     }
 
     .reassurance-items {
@@ -709,7 +725,7 @@
     }
 
     /* ==========================================================================
-       REMEMBRANCE SECTION
+       REMEMBRANCE SECTION (WITH UPDATED DOG PAW IMAGE)
        ========================================================================== */
     .remembrance-section {
       background-color: #F4EFE6;
@@ -861,7 +877,7 @@
     }
 
     /* ==========================================================================
-       ABOUT DR. AMEET
+       ABOUT DR. AMEET (TYPOGRAPHY-LED LAYOUT)
        ========================================================================== */
     .about-section {
       background-color: var(--color-ivory);
@@ -1118,19 +1134,7 @@
     }
 
     /* ==========================================================================
-       ACCESSIBILITY & REDUCED MOTION
-       ========================================================================== */
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
-    }
-
-    /* ==========================================================================
-       RESPONSIVE DESIGN (MOBILE FIRST AUDIT)
+       RESPONSIVE DESIGN
        ========================================================================== */
     @media (max-width: 1024px) {
       .process-grid {
@@ -1167,6 +1171,12 @@
       }
       .mobile-menu-btn {
         display: flex;
+      }
+      .hero {
+        background-position: center 20%;
+        background-image: 
+          linear-gradient(to bottom, rgba(248, 245, 239, 0.92) 0%, rgba(248, 245, 239, 0.96) 65%, rgba(248, 245, 239, 1) 100%),
+          url('https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=1200&q=80');
       }
       .hero-grid {
         grid-template-columns: 1fr;
@@ -1268,6 +1278,15 @@
         gap: 18px;
       }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1327,7 +1346,7 @@
 
   <main id="top">
     <!-- ==========================================================================
-         HERO SECTION
+         HERO SECTION (WITH PET BACKGROUND + EDITORIAL GRADIENT)
          ========================================================================== -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="container">
@@ -1379,8 +1398,8 @@
     </div>
 
     <!-- ==========================================================================
-       INTRODUCTION (EDITORIAL WHITESPACE)
-       ========================================================================== -->
+         INTRODUCTION
+         ========================================================================== -->
     <section class="section-spacing intro-section" aria-labelledby="intro-heading">
       <div class="container">
         <div class="intro-grid">
@@ -1411,7 +1430,6 @@
         </div>
 
         <div class="services-editorial-list">
-          <!-- 01 -->
           <article class="service-entry">
             <span class="service-number" aria-hidden="true">01</span>
             <h3 class="service-title">Pet Funeral Services</h3>
@@ -1420,7 +1438,6 @@
             </p>
           </article>
 
-          <!-- 02 -->
           <article class="service-entry">
             <span class="service-number" aria-hidden="true">02</span>
             <h3 class="service-title">Pet Cremation</h3>
@@ -1429,7 +1446,6 @@
             </p>
           </article>
 
-          <!-- 03 -->
           <article class="service-entry">
             <span class="service-number" aria-hidden="true">03</span>
             <h3 class="service-title">Home Pickup Assistance</h3>
@@ -1438,7 +1454,6 @@
             </p>
           </article>
 
-          <!-- 04 -->
           <article class="service-entry">
             <span class="service-number" aria-hidden="true">04</span>
             <h3 class="service-title">Ash Return &amp; Keepsakes</h3>
@@ -1447,7 +1462,6 @@
             </p>
           </article>
 
-          <!-- 05 -->
           <article class="service-entry">
             <span class="service-number" aria-hidden="true">05</span>
             <h3 class="service-title">Memorial Tributes</h3>
@@ -1456,7 +1470,6 @@
             </p>
           </article>
 
-          <!-- 06 -->
           <article class="service-entry">
             <span class="service-number" aria-hidden="true">06</span>
             <h3 class="service-title">Grief Support Guidance</h3>
@@ -1562,7 +1575,7 @@
     </section>
 
     <!-- ==========================================================================
-         REMEMBRANCE SECTION
+         REMEMBRANCE SECTION (UPDATED DOG IMAGE FOR PAW PRINTS)
          ========================================================================== -->
     <section class="section-spacing remembrance-section" aria-labelledby="remembrance-heading">
       <div class="container">
@@ -1575,12 +1588,12 @@
         </div>
 
         <div class="remembrance-grid">
-          <!-- Item 1: Paw Prints -->
+          <!-- Item 1: Paw Prints (Updated with touching dog & paw photo) -->
           <article class="remembrance-card">
             <div class="remembrance-img-wrap">
               <img 
-                src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?auto=format&fit=crop&w=600&q=80" 
-                alt="Delicate touch and close connection between caregiver and pet"
+                src="https://images.unsplash.com/photo-1534361960057-19889db9621e?auto=format&fit=crop&w=600&q=80" 
+                alt="A warm, touching portrait of a loyal dog resting in natural light"
                 loading="lazy"
                 width="400"
                 height="220"
@@ -1755,7 +1768,7 @@
     </section>
 
     <!-- ==========================================================================
-         ABOUT DR. AMEET (TYPOGRAPHY-LED LAYOUT)
+         ABOUT DR. AMEET
          ========================================================================== -->
     <section id="about" class="section-spacing about-section" aria-labelledby="about-title">
       <div class="container">
@@ -1930,7 +1943,6 @@
     (function() {
       'use strict';
 
-      // Mobile Navigation Handler
       const menuBtn = document.getElementById('mobileMenuToggle');
       const navDrawer = document.getElementById('mobileNav');
       const mobileLinks = document.querySelectorAll('.mobile-link');
@@ -1950,7 +1962,6 @@
           link.addEventListener('click', () => toggleMenu(true));
         });
 
-        // Close on escape key
         document.addEventListener('keydown', (e) => {
           if (e.key === 'Escape' && navDrawer.classList.contains('open')) {
             toggleMenu(true);
@@ -1959,7 +1970,6 @@
         });
       }
 
-      // Smooth subtle header border on scroll
       const header = document.querySelector('.site-nav');
       window.addEventListener('scroll', () => {
         if (window.scrollY > 30) {
