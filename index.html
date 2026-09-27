@@ -40,8 +40,7 @@
       --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
       --site-max-width: 1200px;
-      --transition-gentle: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      --transition-slow: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-gentle: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* CSS Reset */
@@ -149,15 +148,6 @@
       color: var(--color-forest);
     }
 
-    .editorial-lead {
-      font-family: var(--font-serif);
-      font-size: clamp(1.25rem, 2vw, 1.6rem);
-      line-height: 1.5;
-      font-weight: 400;
-      color: var(--color-charcoal);
-      font-style: italic;
-    }
-
     .body-copy {
       font-size: clamp(0.98rem, 1.05vw, 1.08rem);
       line-height: 1.8;
@@ -212,11 +202,9 @@
     }
 
     .btn-secondary {
-      background-color: rgba(248, 245, 239, 0.85);
+      background-color: rgba(248, 245, 239, 0.9);
       color: var(--color-forest);
       border: 1px solid var(--color-sand);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
     }
 
     .btn-secondary:hover {
@@ -233,17 +221,15 @@
     }
 
     /* ==========================================================================
-       NAVIGATION
+       NAVIGATION & MOBILE DRAWER FIXES
        ========================================================================== */
     .site-nav {
       position: sticky;
       top: 0;
-      z-index: 99;
-      background-color: rgba(248, 245, 239, 0.94);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(216, 203, 185, 0.45);
-      transition: border-color 0.3s ease, background-color 0.3s ease;
+      z-index: 1000;
+      background-color: #F8F5EF;
+      border-bottom: 1px solid rgba(216, 203, 185, 0.6);
+      transition: box-shadow 0.3s ease;
     }
 
     .nav-inner {
@@ -256,6 +242,7 @@
     .nav-wordmark {
       display: flex;
       flex-direction: column;
+      z-index: 1001;
     }
 
     .brand-name {
@@ -316,70 +303,87 @@
       display: none;
       flex-direction: column;
       justify-content: center;
-      gap: 5px;
+      align-items: center;
+      gap: 6px;
       width: 44px;
       height: 44px;
-      padding: 8px;
       cursor: pointer;
+      z-index: 1001;
     }
 
     .mobile-menu-btn span {
       display: block;
       width: 24px;
-      height: 1.5px;
+      height: 1.8px;
       background-color: var(--color-forest);
-      transition: var(--transition-gentle);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform-origin: center;
     }
 
-    /* Mobile drawer */
+    /* Transform hamburger into close "X" */
+    .mobile-menu-btn[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(7.8px) rotate(45deg);
+    }
+    .mobile-menu-btn[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+    .mobile-menu-btn[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-7.8px) rotate(-45deg);
+    }
+
+    /* SOLID OPAQUE MOBILE DRAWER */
     .mobile-drawer {
+      display: none;
       position: fixed;
       top: 80px;
       left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: var(--color-ivory);
-      padding: 2.5rem clamp(20px, 4vw, 48px);
-      display: flex;
+      width: 100vw;
+      height: calc(100vh - 80px);
+      height: calc(100dvh - 80px);
+      background-color: #F8F5EF !important; /* Fully opaque */
+      z-index: 999;
+      padding: 2.2rem 24px 3rem;
       flex-direction: column;
-      justify-content: flex-start;
-      gap: 2rem;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-8px);
-      transition: var(--transition-gentle);
+      justify-content: space-between;
+      overflow-y: auto;
       border-top: 1px solid var(--color-sand);
-      z-index: 98;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
     .mobile-drawer.open {
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0);
+      display: flex !important;
     }
 
     .mobile-drawer ul {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
+      gap: 1.4rem;
+      padding-top: 0.5rem;
     }
 
     .mobile-drawer .nav-link {
       font-family: var(--font-serif);
-      font-size: 1.45rem;
+      font-size: 1.55rem;
       color: var(--color-forest);
+      display: inline-block;
+      padding: 6px 0;
+    }
+
+    .mobile-drawer-footer {
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--color-sand);
+      margin-top: 2rem;
     }
 
     /* ==========================================================================
-       HERO (UPDATED WITH BACKGROUND PET IMAGE + SOFT WARM GRADIENTS)
+       HERO
        ========================================================================== */
     .hero {
       position: relative;
       padding-top: clamp(40px, 6vw, 90px);
       padding-bottom: clamp(60px, 8vw, 110px);
       background-color: var(--color-ivory);
-      /* Subtle pet photography background with warm cream-to-ivory gradients */
       background-image: 
         linear-gradient(to right, rgba(248, 245, 239, 0.98) 0%, rgba(248, 245, 239, 0.94) 42%, rgba(248, 245, 239, 0.82) 70%, rgba(248, 245, 239, 0.68) 100%),
         linear-gradient(to bottom, rgba(248, 245, 239, 0.6) 0%, rgba(248, 245, 239, 0.92) 100%),
@@ -530,7 +534,7 @@
     }
 
     /* ==========================================================================
-       SERVICES (EDITORIAL NUMBERED LIST)
+       SERVICES
        ========================================================================== */
     .services-section {
       background-color: #FAF8F3;
@@ -597,7 +601,7 @@
     }
 
     /* ==========================================================================
-       TRUST SECTION (QUIET METRICS)
+       TRUST SECTION
        ========================================================================== */
     .trust-section {
       background-color: var(--color-cream);
@@ -645,7 +649,7 @@
     }
 
     /* ==========================================================================
-       FAREWELL PROCESS (TIMELINE)
+       FAREWELL PROCESS
        ========================================================================== */
     .process-section {
       background-color: var(--color-ivory);
@@ -659,7 +663,6 @@
       position: relative;
     }
 
-    /* Desktop horizontal line */
     .timeline-track-desktop {
       position: absolute;
       top: 22px;
@@ -725,7 +728,7 @@
     }
 
     /* ==========================================================================
-       REMEMBRANCE SECTION (WITH UPDATED DOG PAW IMAGE)
+       REMEMBRANCE SECTION
        ========================================================================== */
     .remembrance-section {
       background-color: #F4EFE6;
@@ -877,7 +880,7 @@
     }
 
     /* ==========================================================================
-       ABOUT DR. AMEET (TYPOGRAPHY-LED LAYOUT)
+       ABOUT DR. AMEET
        ========================================================================== */
     .about-section {
       background-color: var(--color-ivory);
@@ -912,7 +915,7 @@
     }
 
     /* ==========================================================================
-       VALUES SECTION
+       DR. AMEET'S VALUES
        ========================================================================== */
     .values-section {
       background-color: #F5EFE6;
@@ -950,7 +953,7 @@
     }
 
     /* ==========================================================================
-       EMOTIONAL CLOSING (FULL WIDTH CALM)
+       EMOTIONAL CLOSING
        ========================================================================== */
     .closing-section {
       background-color: var(--color-ivory);
@@ -1134,7 +1137,7 @@
     }
 
     /* ==========================================================================
-       RESPONSIVE DESIGN
+       RESPONSIVE BREAKPOINTS
        ========================================================================== */
     @media (max-width: 1024px) {
       .process-grid {
@@ -1335,9 +1338,9 @@
         <li><a href="#about" class="nav-link mobile-link">About Dr. Ameet</a></li>
         <li><a href="#contact" class="nav-link mobile-link">Contact &amp; Support</a></li>
       </ul>
-      <div>
-        <a href="#contact" class="btn btn-primary mobile-link" style="width: 100%;">Arrange a Farewell</a>
-        <p style="margin-top: 1rem; font-size: 0.82rem; color: var(--color-sage-dark); text-align: center;">
+      <div class="mobile-drawer-footer">
+        <a href="#contact" class="btn btn-primary mobile-link" style="width: 100%; margin-bottom: 0.75rem;">Arrange a Farewell</a>
+        <p style="font-size: 0.82rem; color: var(--color-sage-dark); text-align: center;">
           Available any hour, every day
         </p>
       </div>
@@ -1346,7 +1349,7 @@
 
   <main id="top">
     <!-- ==========================================================================
-         HERO SECTION (WITH PET BACKGROUND + EDITORIAL GRADIENT)
+         HERO SECTION
          ========================================================================== -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="container">
@@ -1575,7 +1578,7 @@
     </section>
 
     <!-- ==========================================================================
-         REMEMBRANCE SECTION (UPDATED DOG IMAGE FOR PAW PRINTS)
+         REMEMBRANCE SECTION
          ========================================================================== -->
     <section class="section-spacing remembrance-section" aria-labelledby="remembrance-heading">
       <div class="container">
@@ -1588,7 +1591,6 @@
         </div>
 
         <div class="remembrance-grid">
-          <!-- Item 1: Paw Prints (Updated with touching dog & paw photo) -->
           <article class="remembrance-card">
             <div class="remembrance-img-wrap">
               <img 
@@ -1605,7 +1607,6 @@
             </div>
           </article>
 
-          <!-- Item 2: Memorial Candles -->
           <article class="remembrance-card">
             <div class="remembrance-img-wrap">
               <img 
@@ -1622,7 +1623,6 @@
             </div>
           </article>
 
-          <!-- Item 3: Pet Portrait -->
           <article class="remembrance-card">
             <div class="remembrance-img-wrap">
               <img 
@@ -1639,7 +1639,6 @@
             </div>
           </article>
 
-          <!-- Item 4: Keepsake Urn -->
           <article class="remembrance-card">
             <div class="remembrance-img-wrap">
               <img 
@@ -1656,7 +1655,6 @@
             </div>
           </article>
 
-          <!-- Item 5: Memorial Card -->
           <article class="remembrance-card">
             <div class="remembrance-img-wrap">
               <img 
@@ -1673,7 +1671,6 @@
             </div>
           </article>
 
-          <!-- Item 6: Farewell Ceremony -->
           <article class="remembrance-card">
             <div class="remembrance-img-wrap">
               <img 
@@ -1710,7 +1707,6 @@
         </div>
 
         <div class="memorial-grid">
-          <!-- BRUNO -->
           <article class="memorial-entry">
             <img 
               src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=200&h=200&q=80" 
@@ -1728,7 +1724,6 @@
             <span class="memorial-family">The Sharma Family</span>
           </article>
 
-          <!-- COCO -->
           <article class="memorial-entry">
             <img 
               src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&w=200&h=200&q=80" 
@@ -1746,7 +1741,6 @@
             <span class="memorial-family">The Mehta Family</span>
           </article>
 
-          <!-- SIMBA -->
           <article class="memorial-entry">
             <img 
               src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=200&h=200&q=80" 
@@ -1804,7 +1798,6 @@
     <section class="section-spacing values-section" aria-label="Our Core Principles">
       <div class="container">
         <div class="values-grid">
-          
           <div class="value-item">
             <h3 class="value-title">15+ Years of Care</h3>
             <p class="value-desc">A practicing veterinarian's experience, brought to every farewell.</p>
@@ -1824,7 +1817,6 @@
             <h3 class="value-title">Handled With Dignity</h3>
             <p class="value-desc">Every step, from pickup to keepsake, carried out with quiet respect.</p>
           </div>
-
         </div>
       </div>
     </section>
@@ -1937,7 +1929,7 @@
   </footer>
 
   <!-- ==========================================================================
-       LIGHTWEIGHT ACCESSIBLE JAVASCRIPT
+       JAVASCRIPT FOR SOLID MOBILE DRAWER
        ========================================================================== -->
   <script>
     (function() {
@@ -1947,39 +1939,49 @@
       const navDrawer = document.getElementById('mobileNav');
       const mobileLinks = document.querySelectorAll('.mobile-link');
 
-      function toggleMenu(forceClose = false) {
-        const isOpen = forceClose ? false : !navDrawer.classList.contains('open');
-        navDrawer.classList.toggle('open', isOpen);
-        menuBtn.setAttribute('aria-expanded', String(isOpen));
-        navDrawer.setAttribute('aria-hidden', String(!isOpen));
-        document.body.style.overflow = isOpen ? 'hidden' : '';
+      function closeMenu() {
+        navDrawer.classList.remove('open');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        navDrawer.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      function openMenu() {
+        navDrawer.classList.add('open');
+        menuBtn.setAttribute('aria-expanded', 'true');
+        navDrawer.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function toggleMenu() {
+        const isOpen = navDrawer.classList.contains('open');
+        if (isOpen) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
       }
 
       if (menuBtn && navDrawer) {
-        menuBtn.addEventListener('click', () => toggleMenu());
+        menuBtn.addEventListener('click', toggleMenu);
 
         mobileLinks.forEach(link => {
-          link.addEventListener('click', () => toggleMenu(true));
+          link.addEventListener('click', closeMenu);
         });
 
         document.addEventListener('keydown', (e) => {
           if (e.key === 'Escape' && navDrawer.classList.contains('open')) {
-            toggleMenu(true);
+            closeMenu();
             menuBtn.focus();
           }
         });
-      }
 
-      const header = document.querySelector('.site-nav');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 30) {
-          header.style.borderBottomColor = 'rgba(216, 203, 185, 0.9)';
-          header.style.boxShadow = '0 4px 16px rgba(40, 53, 46, 0.03)';
-        } else {
-          header.style.borderBottomColor = 'rgba(216, 203, 185, 0.45)';
-          header.style.boxShadow = 'none';
-        }
-      }, { passive: true });
+        window.addEventListener('resize', () => {
+          if (window.innerWidth > 860 && navDrawer.classList.contains('open')) {
+            closeMenu();
+          }
+        });
+      }
     })();
   </script>
 </body>
